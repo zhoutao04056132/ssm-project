@@ -22,7 +22,7 @@ public class AuthController {
 
     @RequestMapping("/login")
     /**
-     * url:http://localhost:8080/first_ssm_project_war/auth/login?name=jason&realName=jason-zhou
+     * url:http://localhost:8080/ssm_project_war/auth/login?name=jason&realName=jason-zhou
      */
     public @ResponseBody ResponseData login(@RequestParam(value = "name", required = true) String name,
                        @RequestParam(value = "realName", required = true) String realName)
