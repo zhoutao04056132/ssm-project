@@ -6,6 +6,9 @@ public class User {
     private String mobile;
     private String realName;
 
+    // 添加一个user表没有的属性，能正常查询，但查询返回时该字段值不会被自动注入，为null
+    private String weChat;
+
     private User(){
 
     }
@@ -42,6 +45,14 @@ public class User {
         this.realName = realName;
     }
 
+    public String getWeChat() {
+        return weChat;
+    }
+
+    public void setWeChat(String weChat) {
+        this.weChat = weChat;
+    }
+
     @Override
     public String toString() {
         return "User{" +
@@ -49,6 +60,7 @@ public class User {
                 ", name='" + name + '\'' +
                 ", mobile='" + mobile + '\'' +
                 ", realName='" + realName + '\'' +
+                ", weChat='" + weChat + '\'' +
                 '}';
     }
 }
