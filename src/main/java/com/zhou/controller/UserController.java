@@ -5,13 +5,11 @@ import com.zhou.model.User;
 import com.zhou.service.IUserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.HashMap;
@@ -90,6 +88,25 @@ public class UserController {
         System.out.println("-----------------------user:" + user.getName());
 
         responseData.getData().put("user", user);
+
+        return responseData;
+    }
+
+    @ApiOperation(value = "保存用户", notes = "保存用户", httpMethod = "POST", consumes = "application/json", response = ResponseData.class)
+    @ApiImplicitParams({
+            @ApiImplicitParam(paramType = "body", required = true, name = "user", value = "用户User对象", dataType = "User"),
+            @ApiImplicitParam(paramType = "header", required = true, name = "accessToken", value = "accessToken", dataType = "String")
+    })
+    @RequestMapping(value = "/saveUser", method = RequestMethod.POST)
+    /**
+     * url:http://localhost:8080/ssm_project_war/user/saveUser
+     */
+    public @ResponseBody ResponseData saveUser(@RequestBody User user)
+            throws Exception {
+        ResponseData responseData = ResponseData.ok();
+        int result = userService.insertUser(user);
+
+        responseData.getData().put("result", result);
 
         return responseData;
     }

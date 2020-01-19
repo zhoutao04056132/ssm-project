@@ -12,4 +12,9 @@
         SELECT * FROM user WHERE name=#{0} and realName=#{1}
     </select>
 
+    <insert id="insertUser" parameterType="com.zhou.model.User">
+    insert into user (name, mobile, realName)
+    values (#{name,jdbcType=VARCHAR}, #{mobile,jdbcType=VARCHAR}, #{realName,jdbcType=VARCHAR})
+  </insert>
+
 </mapper>

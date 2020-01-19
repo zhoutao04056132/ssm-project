@@ -21,4 +21,9 @@ public class UserServiceImpl implements IUserService {
     public User selectUserByName(String name, String realName) {
         return userDao.selectUserByName(name, realName);
     }
+
+    @Override
+    public int insertUser(User user) {
+        return userDao.insertUser(user);
+    }
 }
