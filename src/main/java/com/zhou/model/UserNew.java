@@ -1,5 +1,10 @@
 package com.zhou.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import java.util.Date;
+
 /**
  * 测试实体类名和表名不一致
  */
@@ -8,6 +13,12 @@ public class UserNew {
     private String name;
     private String mobile;
     private String realName;
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(
+            pattern = "yyyy-MM-dd HH:mm:ss",
+            timezone = "GMT+8"
+    )
+    private Date createTime;
 
     private UserNew() {
 
@@ -45,6 +56,14 @@ public class UserNew {
         this.realName = realName;
     }
 
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
+
     @Override
     public String toString() {
         return "UserNew{" +
@@ -52,6 +71,7 @@ public class UserNew {
                 ", name='" + name + '\'' +
                 ", mobile='" + mobile + '\'' +
                 ", realName='" + realName + '\'' +
+                ", createTime='" + createTime + '\'' +
                 '}';
     }
 }

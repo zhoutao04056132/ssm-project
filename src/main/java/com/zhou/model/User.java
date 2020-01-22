@@ -10,8 +10,11 @@ public class User {
     private String name;
     private String mobile;
     private String realName;
-    @DateTimeFormat(pattern = "yyyy-MM-dd hh:mm:ss")
-    @JsonFormat(pattern = "yyyy-MM-dd hh:mm:ss")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(
+            pattern = "yyyy-MM-dd HH:mm:ss",
+            timezone = "GMT+8"
+    )
     private Date createTime;
 
     // 添加一个user表没有的属性，能正常查询，但查询返回时该字段值不会被自动注入，为null

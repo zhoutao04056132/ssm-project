@@ -3,8 +3,15 @@
 
 <!-- 设置为IUserDao接口方法提供sql语句配置 -->
 <mapper namespace="com.zhou.dao.IUserNewDao">
+    <resultMap id="baseUserMap" type="com.zhou.model.UserNew">
+        <result column="id" jdbcType="BIGINT" property="id"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="mobile" jdbcType="VARCHAR" property="mobile"/>
+        <result column="realName" jdbcType="VARCHAR" property="realName"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+    </resultMap>
 
-    <select id="selectUserNewById" resultType="com.zhou.model.UserNew" parameterType="long">
+    <select id="selectUserNewById" resultMap="baseUserMap" parameterType="long">
         SELECT * FROM user WHERE id = #{id}
     </select>
 
