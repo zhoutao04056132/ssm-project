@@ -4,17 +4,157 @@
 <!-- 设置为IUserDao接口方法提供sql语句配置 -->
 <mapper namespace="com.zhou.dao.IUserDao">
 
-    <select id="selectUserById" resultType="com.zhou.model.User" parameterType="long">
+    <select id="selectUserById" resultType="com.zhou.model.User" parameterType="Long">
         SELECT * FROM user WHERE id = #{id}
     </select>
 
     <select id="selectUserByName" resultType="com.zhou.model.User">
-        SELECT * FROM user WHERE name=#{0} and realName=#{1}
+        SELECT * FROM user WHERE name=#{name} and realName=#{realName}
     </select>
 
+    <!--
     <insert id="insertUser" parameterType="com.zhou.model.User">
-    insert into user (name, mobile, realName)
-    values (#{name,jdbcType=VARCHAR}, #{mobile,jdbcType=VARCHAR}, #{realName,jdbcType=VARCHAR})
-  </insert>
+        insert into user (name, mobile, realName)
+        values (#{name,jdbcType=VARCHAR}, #{mobile,jdbcType=VARCHAR}, #{realName,jdbcType=VARCHAR})
+    </insert>
+    -->
+
+    <!--
+    <insert id="insertUser" parameterType="com.zhou.model.User" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+        insert into user (name, mobile, realName)
+        values (#{name,jdbcType=VARCHAR}, #{mobile,jdbcType=VARCHAR}, #{realName,jdbcType=VARCHAR})
+    </insert>
+    -->
+
+    <insert id="insertUser" parameterType="com.zhou.model.User">
+        insert into user
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="name != null">
+                name,
+            </if>
+            <if test="mobile != null">
+                mobile,
+            </if>
+            <if test="realName != null">
+                realName,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+        <if test="id != null">
+            #{id,jdbcType=BIGINT},
+            </if>
+            <if test="name != null">
+                #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="mobile != null">
+                #{mobile,jdbcType=VARCHAR},
+            </if>
+            <if test="realName != null">
+                #{realName,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+
+    <insert id="insertUser1" parameterType="com.zhou.model.User" useGeneratedKeys="true" keyProperty="id">
+        insert into user
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="name != null">
+                name,
+            </if>
+            <if test="mobile != null">
+                mobile,
+            </if>
+            <if test="realName != null">
+                realName,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=BIGINT},
+            </if>
+            <if test="name != null">
+                #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="mobile != null">
+                #{mobile,jdbcType=VARCHAR},
+            </if>
+            <if test="realName != null">
+                #{realName,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+
+    <insert id="insertUserBatch" parameterType="java.util.List">
+        <foreach collection="list" item="user" separator=";">
+            insert into user
+            <trim prefix="(" suffix=")" suffixOverrides=",">
+                <if test="user.id != null">
+                    id,
+                </if>
+                <if test="user.name != null">
+                    name,
+                </if>
+                <if test="user.mobile != null">
+                    mobile,
+                </if>
+                <if test="user.realName != null">
+                    realName,
+                </if>
+                <if test="user.createTime != null">
+                    create_time,
+                </if>
+            </trim>
+            <trim prefix="values (" suffix=")" suffixOverrides=",">
+                <if test="user.id != null">
+                    #{user.id,jdbcType=BIGINT},
+                </if>
+                <if test="user.name != null">
+                    #{user.name,jdbcType=VARCHAR},
+                </if>
+                <if test="user.mobile != null">
+                    #{user.mobile,jdbcType=VARCHAR},
+                </if>
+                <if test="user.realName != null">
+                    #{user.realName,jdbcType=VARCHAR},
+                </if>
+                <if test="user.createTime != null">
+                    #{user.createTime,jdbcType=TIMESTAMP},
+                </if>
+            </trim>
+        </foreach>
+    </insert>
+
+    <!-- 列名在foreach之前，需要在业务层对字段进行判空处理，否则会报sql语法错误 -->
+    <insert id="insertUserBatch1" parameterType="java.util.List" useGeneratedKeys="true" keyProperty="id">
+        insert into user(name,mobile,realName,create_time) values
+        <foreach collection="list" item="user" separator=",">
+            (#{user.name,jdbcType=VARCHAR},
+            #{user.mobile,jdbcType=VARCHAR},
+            #{user.realName,jdbcType=VARCHAR},
+            #{user.createTime,jdbcType=TIMESTAMP})
+        </foreach>
+    </insert>
+
+    <insert id="updateUserName" parameterType="com.zhou.model.User">
+        update user set name=#{name}
+    </insert>
 
 </mapper>

@@ -1,23 +1,31 @@
 package com.zhou.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import java.util.Date;
+
 public class User {
-    private long id;
+    private Long id;
     private String name;
     private String mobile;
     private String realName;
+    @DateTimeFormat(pattern = "yyyy-MM-dd hh:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd hh:mm:ss")
+    private Date createTime;
 
     // 添加一个user表没有的属性，能正常查询，但查询返回时该字段值不会被自动注入，为null
-    private String weChat;
+//    private String weChat;
 
-    private User(){
+    public User(){
 
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -45,12 +53,12 @@ public class User {
         this.realName = realName;
     }
 
-    public String getWeChat() {
-        return weChat;
+    public Date getCreateTime() {
+        return createTime;
     }
 
-    public void setWeChat(String weChat) {
-        this.weChat = weChat;
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
     }
 
     @Override
@@ -60,7 +68,7 @@ public class User {
                 ", name='" + name + '\'' +
                 ", mobile='" + mobile + '\'' +
                 ", realName='" + realName + '\'' +
-                ", weChat='" + weChat + '\'' +
+                ", createTime='" + createTime + '\'' +
                 '}';
     }
 }
