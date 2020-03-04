@@ -41,7 +41,9 @@ public class UserServiceImpl implements IUserService {
      * 返回成功插入后的对象，失败则返回的对象为null
      */
     public User insertUserAndReturnUser(User user) {
+        // 必须在插入语句配置useGeneratedKeys="true" keyProperty="id"，否则插入语句成功执行后不会在对象中注入生成的id
         int result = userDao.insertUser1(user);
+//        int result = userDao.insertUser(user);
         if (result != 1) {
             return null;
         }

@@ -24,27 +24,27 @@ public class TokenInterceptor implements HandlerInterceptor {
         System.out.println("userId:" + userIdStr);
         ResponseData responseData = null;
         if (StringUtils.isEmpty(token)) {
-            responseData = ResponseData.unauthorized();
+            responseData = ResponseData.unAuthorized();
             responseMessage(response, response.getWriter(), responseData);
             return false;
         }
 
         DecodedJWT jwt = JwtUtil.verify(token);
         if (null == jwt) {
-            responseData = ResponseData.unauthorized();
+            responseData = ResponseData.unAuthorized();
             responseMessage(response, response.getWriter(), responseData);
             return false;
         }
 
         if (!jwt.getClaim("name").asString().equals(name)) {
-            responseData = ResponseData.uncorrectName();
+            responseData = ResponseData.unCorrectName();
             responseMessage(response, response.getWriter(), responseData);
             System.out.println("success name test!");
             return false;
         }
 
         if (!jwt.getClaim("userId").asString().equals(userIdStr)) {
-            responseData = ResponseData.uncorrectUserId();
+            responseData = ResponseData.unCorrectUserId();
             responseMessage(response, response.getWriter(), responseData);
             System.out.println("success userId test!");
             return false;

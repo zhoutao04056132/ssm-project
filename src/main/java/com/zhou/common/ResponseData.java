@@ -65,24 +65,24 @@ public class ResponseData {
         return new ResponseData(403, "Forbidden");
     }
 
-    public static ResponseData unauthorized() {
-        return new ResponseData(401, "unauthorized");
+    public static ResponseData unAuthorized() {
+        return new ResponseData(401, "UnAuthorized");
     }
 
     public static ResponseData expired() {
-        return new ResponseData(405, "token expired");
+        return new ResponseData(405, "Token Expired");
     }
 
-    public static ResponseData uncorrectUserId() {
-        return new ResponseData(406, "uncorrectUserId");
+    public static ResponseData unCorrectUserId() {
+        return new ResponseData(406, "UnCorrectUserId");
     }
 
-    public static ResponseData uncorrectName() {
-        return new ResponseData(407, "uncorrectName");
+    public static ResponseData unCorrectName() {
+        return new ResponseData(407, "UnCorrectName");
     }
 
     public static ResponseData loginFail() {
-        return new ResponseData(408, "loginFail");
+        return new ResponseData(408, "LoginFail");
     }
 
 
@@ -91,7 +91,7 @@ public class ResponseData {
     }
 
     public static ResponseData customerError() {
-        return new ResponseData(1001, "customer Error");
+        return new ResponseData(1001, "Customer Error");
     }
 
     @Override

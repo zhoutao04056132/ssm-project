@@ -1,6 +1,7 @@
 package com.zhou.controller;
 
 import com.zhou.common.ResponseData;
+import com.zhou.common.util.AuthUtil;
 import com.zhou.common.util.DateUtil;
 import com.zhou.model.User;
 import com.zhou.service.IUserService;
@@ -10,9 +11,10 @@ import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -41,13 +43,27 @@ public class UserController {
     }
 
     @ApiOperation(value = "根据用户id查询用户信息", notes = "根据用户id查询用户信息", httpMethod = "GET", response = ResponseData.class)
-    @ApiImplicitParam(name = "id", value = "用户id", dataType = "long")
+    @ApiImplicitParams({
+            @ApiImplicitParam(paramType = "path", required = true, name = "id", value = "用户id", dataType = "Integer"),
+            @ApiImplicitParam(paramType = "header", required = false, name = "accessToken", value = "accessToken", dataType = "String")
+    })
     @RequestMapping("/selectById1")
     /**
      * url:http://localhost:8080/ssm_project_war/user/selectById1?id=1
      */
-    public @ResponseBody ResponseData selectUser1(long id) throws Exception {
-        ResponseData responseData = ResponseData.ok();
+    public @ResponseBody ResponseData selectUser1(HttpServletRequest request, long id) throws Exception {
+        String accessToken = request.getHeader("accessToken");
+        String name = request.getHeader("name");
+        String userIdStr = request.getHeader("userId");
+        ResponseData responseData = null;
+        // 拦截器规则放过了该请求，在接口层进行token验证
+        if (!AuthUtil.verifyAuth(accessToken, name, userIdStr)) {
+            responseData = ResponseData.unAuthorized();
+            return responseData;
+        }
+
+        responseData = ResponseData.ok();
+
         User user = userService.selectUserById(id);
         System.out.println("-----------------------user:" + user.getName());
 
