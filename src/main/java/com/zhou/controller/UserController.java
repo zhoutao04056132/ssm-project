@@ -1,5 +1,7 @@
 package com.zhou.controller;
 
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageInfo;
 import com.zhou.common.ResponseData;
 import com.zhou.common.util.AuthUtil;
 import com.zhou.common.util.DateUtil;
@@ -47,7 +49,7 @@ public class UserController {
             @ApiImplicitParam(paramType = "path", required = true, name = "id", value = "用户id", dataType = "Integer"),
             @ApiImplicitParam(paramType = "header", required = false, name = "accessToken", value = "accessToken", dataType = "String")
     })
-    @RequestMapping("/selectById1")
+    @RequestMapping("/without/selectById1")
     /**
      * url:http://localhost:8080/ssm_project_war/user/selectById1?id=1
      */
@@ -76,7 +78,7 @@ public class UserController {
 
     @ApiOperation(value = "根据id查询用户信息，使用RequestParam注解", notes = "根据id查询用户信息，使用RequestParam注解", httpMethod = "GET", response = ResponseData.class)
     @ApiImplicitParam(name = "id", value = "用户id", dataType = "long")
-    @RequestMapping("/selectById2")
+    @RequestMapping("/without/selectById2")
     /**
      * url:http://localhost:8080/ssm_project_war/user/selectById2?id=1
      */
@@ -84,7 +86,11 @@ public class UserController {
             throws Exception {
         ResponseData responseData = ResponseData.ok();
         User user = userService.selectUserById(id);
-        System.out.println("-----------------------user:" + user.getName());
+        if (null == user) {
+            System.out.println("-----------------------user is null");
+        } else {
+            System.out.println("-----------------------user:" + user.getName());
+        }
 
         Map<String, Object> data = new HashMap<String, Object>();
         data.put("user", user);
@@ -95,7 +101,7 @@ public class UserController {
 
     @ApiOperation(value = "根据id查询用户信息，以资源方式", notes = "根据id查询用户信息，以资源方式", httpMethod = "GET", response = ResponseData.class)
     @ApiImplicitParam(name = "id", value = "用户id", dataType = "long")
-    @RequestMapping("/selectById3/{id}")
+    @RequestMapping("/without/queryById3/{id}")
     /**
      * url:http://localhost:8080/ssm_project_war/user/selectById3/1
      */
@@ -106,6 +112,26 @@ public class UserController {
         System.out.println("-----------------------user:" + user.getName());
 
         responseData.getData().put("user", user);
+
+        return responseData;
+    }
+
+    @ApiOperation(value = "分页查询用户信息", notes = "分页查询用户信息", httpMethod = "GET", response = ResponseData.class)
+    @ApiImplicitParams({
+            @ApiImplicitParam(paramType = "query", required = true, name = "page", value = "页码", dataType = "Integer"),
+            @ApiImplicitParam(paramType = "query", required = true, name = "size", value = "每页数据条数", dataType = "Integer"),
+            @ApiImplicitParam(paramType = "query", required = true, name = "name", value = "姓名", dataType = "String")
+    })
+    @RequestMapping("/without/selectUsersByPage")
+    public @ResponseBody ResponseData selectUsersByPage(
+            @RequestParam(value = "page", required = true) Integer page,
+            @RequestParam(value = "size", required = true) Integer size,
+            @RequestParam(value = "name", required = true) String name) throws Exception {
+        ResponseData responseData = ResponseData.ok();
+        Page<User> userList = userService.selectUsersByPage(page, size, name);
+        PageInfo pageInfo = userList.toPageInfo();
+
+        responseData.getData().put("pageInfo", pageInfo);
 
         return responseData;
     }

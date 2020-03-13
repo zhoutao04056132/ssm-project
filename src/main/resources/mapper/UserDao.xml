@@ -19,6 +19,10 @@
         SELECT * FROM user WHERE name=#{name} and realName=#{realName}
     </select>
 
+    <select id="selectUsersByNameByPage" resultMap="baseUserMap" parameterType="java.lang.String">
+        SELECT * FROM user where name=#{name} order by create_time desc
+    </select>
+
     <!--
     <insert id="insertUser" parameterType="com.zhou.model.User">
         insert into user (name, mobile, realName)
