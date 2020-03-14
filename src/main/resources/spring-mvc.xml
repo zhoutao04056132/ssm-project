@@ -41,7 +41,7 @@
             <mvc:exclude-mapping path="/auth/register"/>
             <mvc:exclude-mapping path="/auth/login"/>
 
-            <mvc:exclude-mapping path="/**/without/select**"/>
+            <mvc:exclude-mapping path="/**/common/**"/>
 
             <mvc:exclude-mapping path="/swagger*/**"/>
             <mvc:exclude-mapping path="/v2/**"/>

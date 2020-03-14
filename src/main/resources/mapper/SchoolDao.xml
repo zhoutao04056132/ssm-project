@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.zhou.dao.ISchoolDao">
+    <resultMap id="baseSchoolResultMap" type="com.zhou.model.School">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="code" jdbcType="VARCHAR" property="code"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="logo" jdbcType="VARCHAR" property="logo"/>
+        <result column="province_id" jdbcType="INTEGER" property="provinceId"/>
+        <result column="province_name" jdbcType="VARCHAR" property="provinceName"/>
+        <result column="source_id" jdbcType="INTEGER" property="sourceId"/>
+        <result column="source_name" jdbcType="VARCHAR" property="sourceName"/>
+        <result column="subjection_name" jdbcType="VARCHAR" property="subjectionName"/>
+        <result column="summary" jdbcType="VARCHAR" property="summary"/>
+        <result column="short_pinyin" jdbcType="VARCHAR" property="shortPinyin"/>
+        <result column="is_deleted" jdbcType="TINYINT" property="isDeleted"/>
+    </resultMap>
+
+    <select id="selectSchoolById" resultMap="baseSchoolResultMap" parameterType="java.lang.Integer">
+        SELECT * FROM cm_school WHERE id = #{id}
+    </select>
+
+    <select id="selectSchoolsByPage" resultMap="baseSchoolResultMap">
+        SELECT * FROM cm_school where is_deleted = 0 order by short_pinyin
+    </select>
+
+    <select id="selectSchoolsByConditionByPage" resultMap="baseSchoolResultMap">
+        SELECT * FROM cm_school WHERE 1
+        <if test="provinceId != null">
+            and province_id=#{provinceId}
+        </if>
+        <if test="sourceId != null">
+            and source_type_id=#{sourceId}
+        </if>
+        <if test="subjectionName != null">
+            and subjection_name=#{subjectionName}
+        </if>
+        and is_deleted = 0
+    </select>
+
+    <insert id="insertSchool" parameterType="com.zhou.model.School" useGeneratedKeys="true" keyProperty="id">
+        insert into cm_school
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="code != null">
+                code,
+            </if>
+            <if test="name != null">
+                name,
+            </if>
+            <if test="logo != null">
+                logo,
+            </if>
+            <if test="provinceId != null">
+                province_id,
+            </if>
+            <if test="provinceName != null">
+                province_name,
+            </if>
+            <if test="sourceId != null">
+                source_id,
+            </if>
+            <if test="sourceName != null">
+                source_name,
+            </if>
+            <if test="subjectionName != null">
+                subjection_name,
+            </if>
+            <if test="summary != null">
+                summary,
+            </if>
+            <if test="shortPinyin != null">
+                short_pinyin,
+            </if>
+            <if test="isDeleted != null">
+                is_deleted,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="code != null">
+                #{code,jdbcType=VARCHAR},
+            </if>
+            <if test="name != null">
+                #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="logo != null">
+                #{logo,jdbcType=VARCHAR},
+            </if>
+            <if test="provinceId != null">
+                #{provinceId,jdbcType=INTEGER},
+            </if>
+            <if test="provinceName != null">
+                #{provinceName,jdbcType=VARCHAR},
+            </if>
+            <if test="sourceId != null">
+                #{sourceId,jdbcType=INTEGER},
+            </if>
+            <if test="sourceName != null">
+                #{sourceName,jdbcType=VARCHAR},
+            </if>
+            <if test="subjectionName != null">
+                #{subjectionName,jdbcType=VARCHAR},
+            </if>
+            <if test="summary != null">
+                #{summary,jdbcType=VARCHAR},
+            </if>
+            <if test="shortPinyin != null">
+                #{shortPinyin,jdbcType=VARCHAR},
+            </if>
+            <if test="isDeleted != null">
+                #{isDeleted,jdbcType=TINYINT},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateSchool" parameterType="com.zhou.model.School">
+        update cm_school
+        <set>
+            <if test="code != null">
+                code = #{code,jdbcType=VARCHAR},
+            </if>
+            <if test="name != null">
+                name = #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="logo != null">
+                logs = #{logo,jdbcType=VARCHAR},
+            </if>
+            <if test="provinceId != null">
+                province_id = #{provinceId,jdbcType=INTEGER},
+            </if>
+            <if test="provinceName != null">
+                province_name = #{provinceName,jdbcType=VARCHAR},
+            </if>
+            <if test="sourceId != null">
+                source_id = #{sourceId,jdbcType=INTEGER},
+            </if>
+            <if test="sourceName != null">
+                source_name = #{sourceName,jdbcType=VARCHAR},
+            </if>
+            <if test="subjectionName != null">
+                subjection_name = #{subjectionName,jdbcType=VARCHAR},
+            </if>
+            <if test="summary != null">
+                summary = #{summary,jdbcType=VARCHAR},
+            </if>
+            <if test="shortPinyin != null">
+                short_pinyin = #{shortPinyin,jdbcType=VARCHAR},
+            </if>
+            <if test="isDeleted != null">
+                is_deleted = #{isDeleted,jdbcType=TINYINT},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+
+    <update id="deleteSchoolById" parameterType="java.lang.Integer">
+        update cm_school set is_deleted = 1 where id = #{id,jdbcType=INTEGER}
+    </update>
+
+</mapper>
