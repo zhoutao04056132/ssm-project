@@ -1,21 +1,24 @@
-package com.zhou.controller;
+package com.zhou.controller.user;
 
 import com.zhou.common.ResponseData;
 import com.zhou.common.util.JwtUtil;
 import com.zhou.model.User;
 import com.zhou.service.IUserService;
+import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.HashMap;
 import java.util.Map;
 
-@Controller
+@RestController
+@Api(tags = "权限管理", description = "用于测试基础功能，没有实际业务含义")
 @RequestMapping("/auth")
+@Validated
 public class AuthController {
     @Autowired
     private IUserService userService;

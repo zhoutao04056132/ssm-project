@@ -1,4 +1,4 @@
-package com.zhou.controller;
+package com.zhou.controller.user;
 
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
@@ -13,16 +13,15 @@ import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
-@Api("用户管理")
 @Controller
-@RequestMapping("/user")
+@Api(tags = "用户管理", description = "用于测试基础功能，没有实际业务含义")
+@Validated
 public class UserController {
     @Autowired
     private IUserService userService;
@@ -39,7 +38,8 @@ public class UserController {
             @ApiImplicitParam(paramType = "header", required = true, name = "accessToken", value = "accessToken", dataType = "String")
     })
     @RequestMapping(value = "/selectById", method = RequestMethod.GET)
-    public @ResponseBody ResponseData selectUser() throws Exception {
+    public @ResponseBody
+    ResponseData selectUser() throws Exception {
         ResponseData responseData = ResponseData.ok();
         User user = userService.selectUserById(1l);
 

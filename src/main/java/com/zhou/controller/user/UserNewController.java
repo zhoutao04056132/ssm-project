@@ -1,4 +1,4 @@
-package com.zhou.controller;
+package com.zhou.controller.user;
 
 import com.zhou.common.ResponseData;
 import com.zhou.model.UserNew;
@@ -7,18 +7,16 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.Map;
 
-@Api("用户管理")
-@Controller
+@RestController
+@Api(tags = "New用户管理", description = "用于测试基础功能，没有实际业务含义")
 @RequestMapping("/userNew")
+@Validated
 public class UserNewController {
     @Autowired
     private IUserNewService userNewService;

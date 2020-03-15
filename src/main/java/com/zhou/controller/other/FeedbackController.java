@@ -1,4 +1,4 @@
-package com.zhou.controller;
+package com.zhou.controller.other;
 
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
@@ -11,12 +11,19 @@ import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 
-@Api("Feedback管理")
-@Controller
-@RequestMapping("/user")
+@RestController
+@Api(tags = "Feedback管理", description = "用于测试基础功能，没有实际业务含义")
+@RequestMapping("/feedback")
+@Validated
 public class FeedbackController {
     @Autowired
     private IFeedbackService feedbackService;
@@ -46,7 +53,6 @@ public class FeedbackController {
             @ApiImplicitParam(paramType = "header", required = false, name = "name", value = "用户名", dataType = "String"),
             @ApiImplicitParam(paramType = "header", required = false, name = "userId", value = "用户id", dataType = "Integer"),
             @ApiImplicitParam(paramType = "header", required = false, name = "accessToken", value = "accessToken", dataType = "String")
-
     })
     @RequestMapping(value = "/common/feedback", method = RequestMethod.GET)
     public @ResponseBody ResponseData queryFeedbackByUserIdByPage(

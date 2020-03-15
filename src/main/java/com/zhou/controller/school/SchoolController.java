@@ -1,4 +1,4 @@
-package com.zhou.controller;
+package com.zhou.controller.school;
 
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
@@ -11,12 +11,19 @@ import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestBody;
 
-@Api("学校管理")
-@Controller
+@RestController
+@Api(tags = "学校管理", description = "用于测试基础功能，没有实际业务含义")
 @RequestMapping("/school")
+@Validated
 public class SchoolController {
     @Autowired
     private ISchoolService schoolService;
@@ -29,9 +36,9 @@ public class SchoolController {
             @ApiImplicitParam(paramType = "header", required = false, name = "accessToken", value = "accessToken", dataType = "String")
     })
     @RequestMapping(value = "/common/schools/{id}", method = RequestMethod.GET)
-    public @ResponseBody ResponseData querySchoolById(@PathVariable("id") Integer id) throws Exception {
+    public @ResponseBody ResponseData querySchoolById(@PathVariable("id") Integer schoolId) throws Exception {
         ResponseData responseData = ResponseData.ok();
-        School school = schoolService.selectSchoolById(id);
+        School school = schoolService.selectSchoolById(schoolId);
 
         responseData.getData().put("school", school);
 
