@@ -11,15 +11,15 @@
                         http://www.springframework.org/schema/context/spring-context.xsd">
 
     <!-- 加载properties文件 -->
-        <context:property-placeholder ignore-unresolvable="true" location="classpath:jdbc.properties"/>
+    <context:property-placeholder ignore-unresolvable="true" location="classpath:jdbc.properties"/>
 
     <!-- 配置数据源 -->
     <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource">
         <!-- 基本属性 driver、url、user、password -->
         <property name="driverClassName" value="${jdbc.driver}"/>
-        <property name="url" value="${jdbc.url}"/>
-        <property name="username" value="${jdbc.username}"/>
-        <property name="password" value="${jdbc.password}"/>
+        <property name="url" value="${test.jdbc.url}"/>
+        <property name="username" value="${test.jdbc.username}"/>
+        <property name="password" value="${test.jdbc.password}"/>
 
         <!-- 配置初始化大小、最小、最大 -->
         <property name="initialSize" value="${jdbc.initialSize}"/>

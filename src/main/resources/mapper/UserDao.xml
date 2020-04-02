@@ -12,15 +12,15 @@
     </resultMap>
 
     <select id="selectUserById" resultMap="baseUserMap" parameterType="Long">
-        SELECT * FROM user WHERE id = #{id}
+        SELECT * FROM 1_test_user WHERE id = #{id}
     </select>
 
     <select id="selectUserByName" resultMap="baseUserMap">
-        SELECT * FROM user WHERE name=#{name} and realName=#{realName}
+        SELECT * FROM 1_test_user WHERE name=#{name} and realName=#{realName}
     </select>
 
     <select id="selectUsersByNameByPage" resultMap="baseUserMap" parameterType="java.lang.String">
-        SELECT * FROM user where name=#{name} order by create_time desc
+        SELECT * FROM 1_test_user where name=#{name} order by create_time desc
     </select>
 
     <!--
@@ -38,7 +38,7 @@
     -->
 
     <insert id="insertUser" parameterType="com.zhou.model.User">
-        insert into user
+        insert into 1_test_user
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="id != null">
                 id,
@@ -76,7 +76,7 @@
     </insert>
 
     <insert id="insertUser1" parameterType="com.zhou.model.User" useGeneratedKeys="true" keyProperty="id">
-        insert into user
+        insert into 1_test_user
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="id != null">
                 id,
@@ -115,7 +115,7 @@
 
     <insert id="insertUserBatch" parameterType="java.util.List">
         <foreach collection="list" item="user" separator=";">
-            insert into user
+            insert into 1_test_user
             <trim prefix="(" suffix=")" suffixOverrides=",">
                 <if test="user.id != null">
                     id,
@@ -155,7 +155,7 @@
 
     <!-- 列名在foreach之前，需要在业务层对字段进行判空处理，否则会报sql语法错误 -->
     <insert id="insertUserBatch1" parameterType="java.util.List" useGeneratedKeys="true" keyProperty="id">
-        insert into user(name,mobile,realName,create_time) values
+        insert into 1_test_user(name,mobile,realName,create_time) values
         <foreach collection="list" item="user" separator=",">
             (#{user.name,jdbcType=VARCHAR},
             #{user.mobile,jdbcType=VARCHAR},
@@ -165,7 +165,7 @@
     </insert>
 
     <insert id="updateUserName" parameterType="com.zhou.model.User">
-        update user set name=#{name}
+        update 1_test_user set name=#{name}
     </insert>
 
 </mapper>

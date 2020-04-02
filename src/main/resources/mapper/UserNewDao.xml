@@ -11,8 +11,21 @@
         <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
     </resultMap>
 
+    <resultMap id="groupNameVoMap" type="com.zhou.model.GroupNameVo">
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="count" jdbcType="INTEGER" property="count"/>
+    </resultMap>
+
     <select id="selectUserNewById" resultMap="baseUserMap" parameterType="long">
-        SELECT * FROM user WHERE id = #{id}
+        SELECT * FROM 1_test_user WHERE id = #{id}
+    </select>
+
+    <select id="selectGroupNames" resultType="java.lang.String">
+        SELECT name FROM 1_test_user group by name
+    </select>
+
+    <select id="selectGroupNameVos" resultMap="groupNameVoMap">
+        SELECT name,count(*) as count FROM 1_test_user group by name order by count desc
     </select>
 
 </mapper>

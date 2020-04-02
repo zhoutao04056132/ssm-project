@@ -10,15 +10,15 @@
     </resultMap>
 
     <select id="selectFeedbackById" resultMap="baseFeedbackResultMap" parameterType="java.lang.Integer">
-        SELECT * FROM feedback WHERE id = #{id}
+        SELECT * FROM 1_test_feedback WHERE id = #{id}
     </select>
 
     <select id="selectFeedbackByUserIdByPage" resultMap="baseFeedbackResultMap" parameterType="java.lang.Integer">
-        SELECT * FROM feedback WHERE user_id = #{userId} and is_deleted = 0
+        SELECT * FROM 1_test_feedback WHERE user_id = #{userId} and is_deleted = 0
     </select>
 
     <insert id="insertFeedback" parameterType="com.zhou.model.Feedback" useGeneratedKeys="true" keyProperty="id">
-        insert into feedback
+        insert into 1_test_feedback
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="id != null">
                 id,
@@ -49,7 +49,7 @@
         </trim>
     </insert>
     <update id="updateFeedback" parameterType="com.zhou.model.Feedback">
-        update feedback
+        update 1_test_feedback
         <set>
             <if test="userId != null">
                 user_id = #{userId,jdbcType=INTEGER},
@@ -68,7 +68,7 @@
     </update>
 
     <update id="deleteFeedbackById" parameterType="java.lang.Integer">
-        update feedback set is_deleted = 1 where id = #{id,jdbcType=INTEGER}
+        update 1_test_feedback set is_deleted = 1 where id = #{id,jdbcType=INTEGER}
     </update>
 
 </mapper>

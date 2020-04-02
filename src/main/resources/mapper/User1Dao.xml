@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 设置为IUserDao接口方法提供sql语句配置 -->
+<mapper namespace="com.zhou.dao.IUser1Dao">
+    <resultMap id="baseUserResultMap" type="com.zhou.model.User1">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="password" jdbcType="VARCHAR" property="password"/>
+        <result column="mobile" jdbcType="VARCHAR" property="mobile"/>
+        <result column="we_chat" jdbcType="VARCHAR" property="weChat"/>
+        <result column="qq" jdbcType="VARCHAR" property="qq"/>
+        <result column="email" jdbcType="VARCHAR" property="email"/>
+        <result column="real_name" jdbcType="VARCHAR" property="realName"/>
+        <result column="sex" jdbcType="TINYINT" property="sex"/>
+        <result column="portrait" jdbcType="VARCHAR" property="portrait"/>
+        <result column="province_id" jdbcType="INTEGER" property="provinceId"/>
+        <result column="province_code" jdbcType="VARCHAR" property="provinceCode"/>
+        <result column="province_name" jdbcType="VARCHAR" property="provinceName"/>
+        <result column="city_id" jdbcType="INTEGER" property="cityId"/>
+        <result column="city_code" jdbcType="VARCHAR" property="cityCode"/>
+        <result column="city_name" jdbcType="VARCHAR" property="cityName"/>
+        <result column="district_id" jdbcType="INTEGER" property="districtId"/>
+        <result column="district_code" jdbcType="INTEGER" property="districtCode"/>
+        <result column="district_name" jdbcType="VARCHAR" property="districtName"/>
+        <result column="high_school_id" jdbcType="INTEGER" property="highSchoolId"/>
+        <result column="high_school_name" jdbcType="VARCHAR" property="highSchoolName"/>
+        <result column="grade_name" jdbcType="VARCHAR" property="gradeName"/>
+        <result column="class_name" jdbcType="VARCHAR" property="className"/>
+        <result column="science_type_id" jdbcType="INTEGER" property="scienceTypeId"/>
+        <result column="vip_level_id" jdbcType="INTEGER" property="vipLevelId"/>
+        <result column="graduate_year" jdbcType="INTEGER" property="graduateYear"/>
+        <result column="growth" jdbcType="INTEGER" property="growth"/>
+        <result column="integral" jdbcType="INTEGER" property="integral"/>
+        <result column="if_completed_information" jdbcType="TINYINT" property="ifCompletedInformation"/>
+        <result column="create_by" jdbcType="VARCHAR" property="createBy"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="update_by" jdbcType="VARCHAR" property="updateBy"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+        <result column="is_deleted" jdbcType="TINYINT" property="isDeleted"/>
+    </resultMap>
+    <select id="selectUser1ById" resultMap="baseUserResultMap" parameterType="java.lang.Integer">
+        SELECT * FROM user WHERE id = #{id}
+    </select>
+
+    <select id="selectUser1Count" resultType="java.lang.Integer">
+        SELECT count(*) FROM user
+    </select>
+</mapper>
