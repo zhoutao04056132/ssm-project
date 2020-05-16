@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.zhou.dao.ITestFileDao">
+    <resultMap id="baseTestFileMap" type="com.zhou.model.TestFile">
+        <result column="id" jdbcType="BIGINT" property="id"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="url" jdbcType="VARCHAR" property="url"/>
+    </resultMap>
+
+    <select id="selectTestFileById" resultMap="baseTestFileMap" parameterType="Integer">
+        SELECT * FROM 1_test_file WHERE id = #{id}
+    </select>
+
+    <select id="selectTestFilesByPage" resultMap="baseTestFileMap">
+        SELECT * FROM 1_test_file
+    </select>
+
+    <insert id="insertTestFile" parameterType="com.zhou.model.TestFile">
+        insert into 1_test_file
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="name != null">
+                name,
+            </if>
+            <if test="url != null">
+                url,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+        <if test="id != null">
+            #{id,jdbcType=INTEGER},
+            </if>
+            <if test="name != null">
+                #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="url != null">
+                #{url,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+
+    <insert id="insertTestFilesBatch" parameterType="java.util.List">
+        <foreach collection="list" item="testFile" separator=";">
+            insert into 1_test_file
+            <trim prefix="(" suffix=")" suffixOverrides=",">
+                <if test="testFile.id != null">
+                    id,
+                </if>
+                <if test="testFile.name != null">
+                    name,
+                </if>
+                <if test="testFile.url != null">
+                    url,
+                </if>
+            </trim>
+            <trim prefix="values (" suffix=")" suffixOverrides=",">
+                <if test="testFile.id != null">
+                    #{testFile.id,jdbcType=INTEGER},
+                </if>
+                <if test="testFile.name != null">
+                    #{testFile.name,jdbcType=VARCHAR},
+                </if>
+                <if test="testFile.url != null">
+                    #{testFile.url,jdbcType=VARCHAR},
+                </if>
+            </trim>
+        </foreach>
+    </insert>
+
+    <update id="updateTestFile" parameterType="com.zhou.model.TestFile">
+        update 1_test_file set
+        <set>
+            <if test="name != null">
+                name = #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="url != null">
+                url = #{url,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+
+    <delete id="deleteTestFileById" parameterType="java.lang.Integer">
+        delete from 1_test_file where id=#{id}
+    </delete>
+
+</mapper>

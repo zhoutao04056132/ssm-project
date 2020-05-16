@@ -85,6 +85,10 @@ public class ResponseData {
         return new ResponseData(408, "LoginFail");
     }
 
+    public static ResponseData uploadFail() {
+        return new ResponseData(409, "UploadFail");
+    }
+
 
     public static ResponseData serverInternalError() {
         return new ResponseData(500, "Server Internal Error");
